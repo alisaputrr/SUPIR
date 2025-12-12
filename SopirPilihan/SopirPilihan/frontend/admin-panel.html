@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - SopirPilihan.id</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f6fa;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu i {
+            font-size: 1.2rem;
+            width: 25px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon.blue {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-icon.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .stat-icon.orange {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-icon.red {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-header h2 {
+            color: #333;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: #333;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>
+                <i class="fas fa-car"></i>
+                SopirPilihan
+            </h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" class="active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('pending')">
+                    <i class="fas fa-clock"></i>
+                    Pengajuan Pending
+                    <span id="pendingCount" style="background: #ff6b6b; color: white; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.8rem; margin-left: auto;">0</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('drivers')">
+                    <i class="fas fa-users"></i>
+                    Driver Terverifikasi
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('reviews')">
+                    <i class="fas fa-star"></i>
+                    Ulasan
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('analytics')">
+                    <i class="fas fa-chart-line"></i>
+                    Analytics
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i>
+                    Pengaturan
+                </a>
+            </li>
+            <li>
+                <a href="index.html">
+                    <i class="fas fa-home"></i>
+                    Lihat Website
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Dashboard</h1>
+            <div class="user-info">
+                <div class="user-avatar">A</div>
+                <div>
+                    <strong>Admin</strong>
+                    <p style="font-size: 0.85rem; color: #666;">Administrator</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>6</h3>
+                        <p>Total Driver</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>6</h3>
+                        <p>Driver Terverifikasi</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>0</h3>
+                        <p>Pending Verifikasi</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="whatsappClicks">0</h3>
+                        <p>WhatsApp Clicks (Mock)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <button class="btn btn-primary" onclick="showSection('pending')" style="width: 100%; padding: 1rem;">
+                    <i class="fas fa-clock"></i> Lihat Pengajuan Pending
+                </button>
+                <button class="btn btn-success" onclick="exportDriverData()" style="width: 100%; padding: 1rem;">
+                    <i class="fas fa-download"></i> Export Data Driver
+                </button>
+                <button class="btn" onclick="clearAllData()" style="width: 100%; padding: 1rem; background: #dc3545; color: white;">
+                    <i class="fas fa-trash"></i> Reset Semua Data
+                </button>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>Driver Terbaru</h2>
+                    <button class="btn btn-primary" onclick="openAddDriverModal()">
+                        <i class="fas fa-plus"></i> Tambah Driver
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Kota</th>
+                            <th>Mobil</th>
+                            <th>WhatsApp</th>
+                            <th>Rating</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="driverTableBody">
+                        <tr>
+                            <td>Muhammad Rizal</td>
+                            <td>Makassar</td>
+                            <td>Toyota Avanza 2020</td>
+                            <td>0812-3456-7890</td>
+                            <td>⭐ 4.9</td>
+                            <td><span class="badge badge-success">Terverifikasi</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="editDriver(1)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteDriver(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Andi Saputra</td>
+                            <td>Pare-Pare</td>
+                            <td>Daihatsu Xenia 2021</td>
+                            <td>0812-3456-7891</td>
+                            <td>⭐ 4.8</td>
+                            <td><span class="badge badge-success">Terverifikasi</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="editDriver(2)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteDriver(2)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Joko Santoso</td>
+                            <td>Palopo</td>
+                            <td>Honda Mobilio 2019</td>
+                            <td>0812-3456-7892</td>
+                            <td>⭐ 4.7</td>
+                            <td><span class="badge badge-success">Terverifikasi</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="editDriver(3)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteDriver(3)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Pending Drivers Section -->
+        <section id="pending-section" style="display: none;">
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>Pengajuan Driver Pending</h2>
+                    <button class="btn btn-primary" onclick="loadPendingDrivers()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal Daftar</th>
+                            <th>Nama</th>
+                            <th>Kota</th>
+                            <th>Mobil</th>
+                            <th>WhatsApp</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingDriversTable">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 2rem; color: #999;">
+                                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+                                Belum ada pengajuan driver baru
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Drivers Section (Hidden by default) -->
+        <section id="drivers-section" style="display: none;">
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>Driver Terverifikasi</h2>
+                    <button class="btn btn-primary" onclick="loadApprovedDrivers()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Kota</th>
+                            <th>Mobil</th>
+                            <th>WhatsApp</th>
+                            <th>Rating</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="approvedDriversTable">
+                        <!-- Will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add Driver Modal -->
+    <div id="addDriverModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tambah Driver Baru</h3>
+                <button class="close-modal" onclick="closeAddDriverModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addDriverForm" onsubmit="handleAddDriver(event)">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" required placeholder="Contoh: Muhammad Rizal">
+                </div>
+                <div class="form-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="tel" required placeholder="Contoh: 6281234567890">
+                    <small style="color: #666;">Format: 62 + nomor (tanpa 0 di depan)</small>
+                </div>
+                <div class="form-group">
+                    <label>Kota Domisili</label>
+                    <select required>
+                        <option value="">Pilih Kota</option>
+                        <option value="makassar">Makassar</option>
+                        <option value="gowa">Gowa</option>
+                        <option value="maros">Maros</option>
+                        <option value="parepare">Pare-Pare</option>
+                        <option value="palopo">Palopo</option>
+                        <option value="toraja">Toraja</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Jenis Mobil</label>
+                    <select required>
+                        <option value="">Pilih Jenis</option>
+                        <option value="mpv">MPV</option>
+                        <option value="suv">SUV</option>
+                        <option value="minibus">Minibus</option>
+                        <option value="sedan">Sedan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Merk & Tahun Mobil</label>
+                    <input type="text" required placeholder="Contoh: Toyota Avanza 2020">
+                </div>
+                <div class="form-group">
+                    <label>Harga Per Hari (Rp)</label>
+                    <input type="number" required placeholder="Contoh: 400000">
+                </div>
+                <div class="form-group">
+                    <label>Pengalaman (Tahun)</label>
+                    <input type="number" required placeholder="Contoh: 5">
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea rows="3" placeholder="Deskripsi singkat tentang driver..."></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-save"></i> Simpan Driver
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Driver Detail Modal -->
+    <div id="viewDriverModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3>Detail Pengajuan Driver</h3>
+                <button class="close-modal" onclick="closeViewDriverModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="driverDetailContent">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load pending count on page load
+        window.onload = function() {
+            updatePendingCount();
+            loadDashboardStats();
+        };
+
+        function updatePendingCount() {
+            const pendingDrivers = JSON.parse(localStorage.getItem('pendingDrivers') || '[]');
+            const count = pendingDrivers.length;
+            document.getElementById('pendingCount').textContent = count;
+            
+            // Update dashboard stats
+            const pendingStatsEl = document.querySelector('.stat-card:nth-child(3) h3');
+            if (pendingStatsEl) {
+                pendingStatsEl.textContent = count;
+            }
+        }
+
+        function loadDashboardStats() {
+            const approvedDrivers = JSON.parse(localStorage.getItem('approvedDrivers') || '[]');
+            const pendingDrivers = JSON.parse(localStorage.getItem('pendingDrivers') || '[]');
+            
+            // Update stats
+            const totalDriversEl = document.querySelector('.stat-card:nth-child(1) h3');
+            const verifiedEl = document.querySelector('.stat-card:nth-child(2) h3');
+            const whatsappEl = document.getElementById('whatsappClicks');
+            
+            if (totalDriversEl) totalDriversEl.textContent = approvedDrivers.length;
+            if (verifiedEl) verifiedEl.textContent = approvedDrivers.length;
+            if (whatsappEl) whatsappEl.textContent = Math.floor(Math.random() * 500); // Mock data
+        }
+
+        function exportDriverData() {
+            const approvedDrivers = JSON.parse(localStorage.getItem('approvedDrivers') || '[]');
+            
+            if (approvedDrivers.length === 0) {
+                alert('Tidak ada data driver untuk diexport');
+                return;
+            }
+            
+            // Convert to CSV
+            const headers = ['Nama', 'Email', 'WhatsApp', 'Kota', 'Mobil', 'Harga/Hari', 'Rating', 'Pengalaman'];
+            const rows = approvedDrivers.map(d => [
+                d.nama_lengkap,
+                d.email,
+                d.nomor_whatsapp,
+                d.kota_domisili,
+                d.merk_mobil,
+                d.harga_per_hari,
+                d.rating || 5.0,
+                d.pengalaman_tahun
+            ]);
+            
+            let csv = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csv += row.join(',') + '\n';
+            });
+            
+            // Download
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data-driver-' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+            
+            alert('✅ Data driver berhasil diexport!');
+        }
+
+        function clearAllData() {
+            if (!confirm('⚠️ PERHATIAN!\n\nAnda akan menghapus SEMUA data:\n- Driver pending\n- Driver approved\n\nData tidak bisa dikembalikan!\n\nLanjutkan?')) {
+                return;
+            }
+            
+            if (!confirm('Yakin 100%? Ini adalah konfirmasi terakhir!')) {
+                return;
+            }
+            
+            localStorage.removeItem('pendingDrivers');
+            localStorage.removeItem('approvedDrivers');
+            
+            alert('✅ Semua data berhasil dihapus!');
+            location.reload();
+        }
+
+        function loadPendingDrivers() {
+            const pendingDrivers = JSON.parse(localStorage.getItem('pendingDrivers') || '[]');
+            const tbody = document.getElementById('pendingDriversTable');
+            
+            if (pendingDrivers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem; color: #999;">
+                            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+                            Belum ada pengajuan driver baru
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = pendingDrivers.map((driver, index) => `
+                <tr>
+                    <td>${new Date(driver.tanggal_daftar).toLocaleDateString('id-ID')}</td>
+                    <td>${driver.nama_lengkap}</td>
+                    <td>${driver.kota_domisili}</td>
+                    <td>${driver.merk_mobil} (${driver.jenis_mobil.toUpperCase()})</td>
+                    <td>${driver.nomor_whatsapp}</td>
+                    <td><span class="badge badge-warning">Pending</span></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="viewDriverDetail(${index})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm" onclick="approveDriver(${index})">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="rejectDriver(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadApprovedDrivers() {
+            const approvedDrivers = JSON.parse(localStorage.getItem('approvedDrivers') || '[]');
+            const tbody = document.getElementById('approvedDriversTable');
+            
+            if (approvedDrivers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem; color: #999;">
+                            <i class="fas fa-users" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+                            Belum ada driver yang terverifikasi
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = approvedDrivers.map((driver, index) => `
+                <tr>
+                    <td>${driver.nama_lengkap}</td>
+                    <td>${driver.kota_domisili}</td>
+                    <td>${driver.merk_mobil}</td>
+                    <td>${driver.nomor_whatsapp}</td>
+                    <td>⭐ ${driver.rating || '5.0'}</td>
+                    <td><span class="badge badge-success">Terverifikasi</span></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="viewApprovedDriver(${index})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="removeDriver(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function viewDriverDetail(index) {
+            const pendingDrivers = JSON.parse(localStorage.getItem('pendingDrivers') || '[]');
+            const driver = pendingDrivers[index];
+            
+            const content = `
+                <div style="max-height: 60vh; overflow-y: auto;">
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                        <h4 style="color: #333; margin-bottom: 1rem;">📋 Data Pribadi</h4>
+                        <div style="display: grid; gap: 0.8rem;">
+                            <div><strong>Nama:</strong> ${driver.nama_lengkap}</div>
+                            <div><strong>Email:</strong> ${driver.email}</div>
+                            <div><strong>WhatsApp:</strong> ${driver.nomor_whatsapp}</div>
+                            <div><strong>Alamat:</strong> ${driver.alamat}</div>
+                            <div><strong>Kota:</strong> ${driver.kota_domisili}</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                        <h4 style="color: #333; margin-bottom: 1rem;">🪪 Data SIM</h4>
+                        <div style="display: grid; gap: 0.8rem;">
+                            <div><strong>Nomor SIM:</strong> ${driver.nomor_sim}</div>
+                            <div><strong>Tipe SIM:</strong> ${driver.tipe_sim}</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                        <h4 style="color: #333; margin-bottom: 1rem;">🚗 Data Kendaraan</h4>
+                        <div style="display: grid; gap: 0.8rem;">
+                            <div><strong>Jenis:</strong> ${driver.jenis_mobil.toUpperCase()}</div>
+                            <div><strong>Merk/Model:</strong> ${driver.merk_mobil}</div>
+                            <div><strong>Tahun:</strong> ${driver.tahun_kendaraan}</div>
+                            <div><strong>Nomor Polisi:</strong> ${driver.nomor_polisi}</div>
+                            <div><strong>Kapasitas:</strong> ${driver.kapasitas_penumpang} orang</div>
+                            <div><strong>Warna:</strong> ${driver.warna_mobil}</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                        <h4 style="color: #333; margin-bottom: 1rem;">💼 Data Layanan</h4>
+                        <div style="display: grid; gap: 0.8rem;">
+                            <div><strong>Pengalaman:</strong> ${driver.pengalaman_tahun} tahun</div>
+                            <div><strong>Harga per Hari:</strong> Rp ${parseInt(driver.harga_per_hari).toLocaleString('id-ID')}</div>
+                            <div><strong>Spesialisasi:</strong><br>${driver.spesialisasi.map(s => `<span style="background: #667eea; color: white; padding: 0.3rem 0.8rem; border-radius: 15px; display: inline-block; margin: 0.2rem;">${s}</span>`).join('')}</div>
+                            ${driver.deskripsi ? `<div><strong>Deskripsi:</strong><br>${driver.deskripsi}</div>` : ''}
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button class="btn btn-success" style="flex: 1;" onclick="approveDriver(${index}); closeViewDriverModal();">
+                            <i class="fas fa-check"></i> Setujui Pendaftaran
+                        </button>
+                        <button class="btn btn-danger" style="flex: 1;" onclick="rejectDriver(${index}); closeViewDriverModal();">
+                            <i class="fas fa-times"></i> Tolak Pendaftaran
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('driverDetailContent').innerHTML = content;
+            document.getElementById('viewDriverModal').classList.add('active');
+        }
+
+        function closeViewDriverModal() {
+            document.getElementById('viewDriverModal').classList.remove('active');
+        }
+
+        function approveDriver(index) {
+            if (!confirm('Apakah Anda yakin ingin menyetujui pendaftaran driver ini?')) return;
+            
+            const pendingDrivers = JSON.parse(localStorage.getItem('pendingDrivers') || '[]');
+            const approvedDrivers = JSON.parse(localStorage.getItem('approvedDrivers') || '[]');
+            
+            const driver = pendingDrivers[index];
+            driver.status = 'approved';
+            driver.rating = 5.0;
+            driver.total_review = 0;
+            driver.tanggal_approval = new Date().toISOString();
+            
+            approvedDrivers.push(driver);
+            pendingDrivers.splice(index, 1);
+            
+            localStorage.setItem('pendingDrivers', JSON.stringify(pendingDrivers));
+            localStorage.setItem('approvedDrivers', JSON.stringify(approvedDrivers));
+            
+            alert('✅ Driver berhasil disetujui dan ditambahkan ke katalog!');
+            loadPendingDrivers();
+            updatePendingCount();
+            loadDashboardStats();
+        }
+
+        function rejectDriver(index) {
+            const reason = prompt('Alasan penolakan (akan dikirim ke driver via WhatsApp):');
+            if (!reason) return;
+            
+            if (!confirm('Apakah Anda yakin ingin menolak pendaftaran driver ini?')) return;
+            
+            const pendingDrivers = JSON.parse(localStorage.getItem('pendingDrivers') || '[]');
+            pendingDrivers.splice(index, 1);
+            localStorage.setItem('pendingDrivers', JSON.stringify(pendingDrivers));
+            
+            alert('❌ Pendaftaran driver ditolak. Alasan: ' + reason);
+            loadPendingDrivers();
+            updatePendingCount();
+        }
+
+        function viewApprovedDriver(index) {
+            const approvedDrivers = JSON.parse(localStorage.getItem('approvedDrivers') || '[]');
+            const driver = approvedDrivers[index];
+            
+            const content = `
+                <div style="max-height: 60vh; overflow-y: auto;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>${driver.nama_lengkap}</h3>
+                        <p style="color: #666;">${driver.kota_domisili} | ${driver.merk_mobil}</p>
+                        <div style="color: #ffc107; font-size: 1.2rem; margin-top: 0.5rem;">
+                            ⭐ ${driver.rating} (${driver.total_review} ulasan)
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+                        <strong>📞 Kontak:</strong><br>
+                        WhatsApp: ${driver.nomor_whatsapp}<br>
+                        Email: ${driver.email}
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+                        <strong>🚗 Kendaraan:</strong><br>
+                        ${driver.merk_mobil} ${driver.tahun_kendaraan} (${driver.warna_mobil})<br>
+                        Kapasitas: ${driver.kapasitas_penumpang} orang<br>
+                        Nomor Polisi: ${driver.nomor_polisi}
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
+                        <strong>💰 Harga:</strong> Rp ${parseInt(driver.harga_per_hari).toLocaleString('id-ID')}/hari<br>
+                        <strong>📅 Terdaftar:</strong> ${new Date(driver.tanggal_approval).toLocaleDateString('id-ID')}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('driverDetailContent').innerHTML = content;
+            document.getElementById('viewDriverModal').classList.add('active');
+        }
+
+        function removeDriver(index) {
+            if (!confirm('Apakah Anda yakin ingin menghapus driver ini dari katalog?')) return;
+            
+            const approvedDrivers = JSON.parse(localStorage.getItem('approvedDrivers') || '[]');
+            approvedDrivers.splice(index, 1);
+            localStorage.setItem('approvedDrivers', JSON.stringify(approvedDrivers));
+            
+            alert('Driver berhasil dihapus dari katalog');
+            loadApprovedDrivers();
+            loadDashboardStats();
+        }
+
+        // Navigation
+        function showSection(section) {
+            document.querySelectorAll('main > section').forEach(s => s.style.display = 'none');
+            document.getElementById(section + '-section').style.display = 'block';
+            
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            event.target.closest('a').classList.add('active');
+            
+            // Load data based on section
+            if (section === 'pending') {
+                loadPendingDrivers();
+            } else if (section === 'drivers') {
+                loadApprovedDrivers();
+            }
+        }
+
+        // Modal Functions
+        function openAddDriverModal() {
+            document.getElementById('addDriverModal').classList.add('active');
+        }
+
+        function closeAddDriverModal() {
+            document.getElementById('addDriverModal').classList.remove('active');
+        }
+
+        function handleAddDriver(e) {
+            e.preventDefault();
+            alert('Driver berhasil ditambahkan! (Fitur ini akan terhubung ke database)');
+            closeAddDriverModal();
+            e.target.reset();
+        }
+
+        function editDriver(id) {
+            alert('Edit driver ID: ' + id + '\n(Fitur akan membuka form edit)');
+        }
+
+        function deleteDriver(id) {
+            if (confirm('Yakin ingin menghapus driver ini?')) {
+                alert('Driver berhasil dihapus! (ID: ' + id + ')');
+            }
+        }
+
+        function logout() {
+            if (confirm('Yakin ingin logout?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('addDriverModal');
+            if (event.target == modal) {
+                closeAddDriverModal();
+            }
+        }
+    </script>
+</body>
+</html>

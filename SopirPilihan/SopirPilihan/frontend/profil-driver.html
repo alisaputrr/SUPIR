@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Driver - SopirPilihan.id</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .driver-name {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .driver-location {
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+
+        .rating-badge {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .rating-badge .stars {
+            color: #ffc107;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating-badge .rating-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .rating-badge .review-count {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .info-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item i {
+            color: #667eea;
+            width: 25px;
+            margin-right: 0.5rem;
+        }
+
+        .info-item strong {
+            color: #333;
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem;
+            background: #25D366;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            transition: background 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+        }
+
+        /* Content Section */
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .content-card h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Vehicle Info */
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .vehicle-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .vehicle-item .label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .vehicle-item .value {
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Specialties */
+        .specialties-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .specialty-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* Reviews */
+        .review-item {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .review-date {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .review-stars {
+            color: #ffc107;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-text {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Price Card */
+        .price-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-card {
+                position: relative;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-car"></i>
+                <span>SopirPilihan.id</span>
+            </a>
+            <a href="katalog-driver.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali ke Katalog
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Profile Sidebar -->
+        <aside class="profile-card">
+            <div class="profile-image">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            
+            <h1 class="driver-name" id="driverName">Loading...</h1>
+            
+            <div class="driver-location" id="driverLocation">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Loading...</span>
+            </div>
+
+            <div class="rating-badge">
+                <div class="stars" id="driverStars">★★★★★</div>
+                <div class="rating-text" id="driverRating">5.0</div>
+                <div class="review-count" id="reviewCount">0 ulasan</div>
+            </div>
+
+            <div class="price-card">
+                <div class="price-label">Harga Sewa</div>
+                <div class="price-amount" id="driverPrice">Rp 0</div>
+                <div class="price-period">per hari</div>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <strong>Pengalaman:</strong> <span id="driverExperience">-</span> tahun
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <strong>WhatsApp:</strong> <span id="driverPhone">-</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <strong>Email:</strong> <span id="driverEmail">-</span>
+                </div>
+            </div>
+
+            <a href="#" id="whatsappButton" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Chat di WhatsApp
+            </a>
+        </aside>
+
+        <!-- Content Section -->
+        <main class="content-section">
+            <!-- About -->
+            <div class="content-card">
+                <h2><i class="fas fa-info-circle"></i> Tentang Driver</h2>
+                <p id="driverDescription" style="color: #555; line-height: 1.8;">
+                    Loading...
+                </p>
+            </div>
+
+            <!-- Vehicle Info -->
+            <div class="content-card">
+                <h2><i class="fas fa-car"></i> Informasi Kendaraan</h2>
+                <div class="vehicle-grid">
+                    <div class="vehicle-item">
+                        <div class="label">Jenis Mobil</div>
+                        <div class="value" id="vehicleType">-</div>
+                    </div>
+                    <div class="vehicle-item">
+                        <div class="label">Merk & Model</div>
+                        <div class="value" id="vehicleBrand">-</div>
+                    </div>
+                    <div class="vehicle-item">
+                        <div class="label">Tahun</div>
+                        <div class="value" id="vehicleYear">-</div>
+                    </div>
+                    <div class="vehicle-item">
+                        <div class="label">Warna</div>
+                        <div class="value" id="vehicleColor">-</div>
+                    </div>
+                    <div class="vehicle-item">
+                        <div class="label">Kapasitas</div>
+                        <div class="value" id="vehicleCapacity">- orang</div>
+                    </div>
+                    <div class="vehicle-item">
+                        <div class="label">Nomor Polisi</div>
+                        <div class="value" id="vehiclePlate">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Specialties -->
+            <div class="content-card">
+                <h2><i class="fas fa-star"></i> Spesialisasi Layanan</h2>
+                <div class="specialties-list" id="specialtiesList">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Reviews -->
+            <div class="content-card">
+                <h2><i class="fas fa-comments"></i> Ulasan Pelanggan</h2>
+                <div id="reviewsList">
+                    <div class="empty-state">
+                        <i class="fas fa-star"></i>
+                        <p>Belum ada ulasan untuk driver ini</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Get driver ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const driverId = urlParams.get('id');
+
+        // Load driver data
+        function loadDriverData() {
+            // Get approved drivers from localStorage
+            const approvedDrivers = JSON.parse(localStorage.getItem('approvedDrivers') || '[]');
+            
+            // Find driver by ID
+            const driver = approvedDrivers.find(d => d.id == driverId);
+            
+            if (!driver) {
+                alert('Driver tidak ditemukan');
+                window.location.href = 'katalog-driver.html';
+                return;
+            }
+
+            // Populate driver data
+            document.getElementById('driverName').textContent = driver.nama_lengkap;
+            document.getElementById('driverLocation').innerHTML = `
+                <i class="fas fa-map-marker-alt"></i>
+                <span>${driver.kota_domisili.charAt(0).toUpperCase() + driver.kota_domisili.slice(1)}</span>
+            `;
+            
+            // Rating
+            const rating = driver.rating || 5.0;
+            const stars = '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '⭐' : '') + '☆'.repeat(5 - Math.ceil(rating));
+            document.getElementById('driverStars').textContent = stars;
+            document.getElementById('driverRating').textContent = rating.toFixed(1);
+            document.getElementById('reviewCount').textContent = `${driver.total_review || 0} ulasan`;
+
+            // Price
+            document.getElementById('driverPrice').textContent = 'Rp ' + parseInt(driver.harga_per_hari).toLocaleString('id-ID');
+
+            // Contact
+            document.getElementById('driverExperience').textContent = driver.pengalaman_tahun;
+            document.getElementById('driverPhone').textContent = driver.nomor_whatsapp;
+            document.getElementById('driverEmail').textContent = driver.email;
+
+            // WhatsApp button
+            const waMessage = `Halo ${driver.nama_lengkap}, saya tertarik dengan layanan transportasi Anda. Saya ingin booking untuk:%0A%0ANama: %0ATanggal: %0ATujuan: %0AJumlah Penumpang: `;
+            document.getElementById('whatsappButton').href = `https://wa.me/${driver.nomor_whatsapp}?text=${waMessage}`;
+
+            // Description
+            document.getElementById('driverDescription').textContent = driver.deskripsi || 'Driver profesional dan berpengalaman siap melayani perjalanan Anda dengan aman dan nyaman.';
+
+            // Vehicle Info
+            document.getElementById('vehicleType').textContent = driver.jenis_mobil.toUpperCase();
+            document.getElementById('vehicleBrand').textContent = driver.merk_mobil;
+            document.getElementById('vehicleYear').textContent = driver.tahun_kendaraan;
+            document.getElementById('vehicleColor').textContent = driver.warna_mobil;
+            document.getElementById('vehicleCapacity').textContent = driver.kapasitas_penumpang + ' orang';
+            document.getElementById('vehiclePlate').textContent = driver.nomor_polisi;
+
+            // Specialties
+            const specialtiesHtml = driver.spesialisasi.map(s => 
+                `<div class="specialty-tag">${s}</div>`
+            ).join('');
+            document.getElementById('specialtiesList').innerHTML = specialtiesHtml;
+
+            // Load reviews (sample data)
+            loadReviews(driver);
+        }
+
+        function loadReviews(driver) {
+            // Sample reviews - dalam implementasi real akan dari database
+            const sampleReviews = [
+                {
+                    name: 'Budi Santoso',
+                    rating: 5,
+                    date: '2024-11-15',
+                    comment: 'Driver sangat profesional dan ramah. Mobil bersih dan nyaman. Perjalanan dari Makassar ke Toraja sangat menyenangkan. Highly recommended!'
+                },
+                {
+                    name: 'Siti Aminah',
+                    rating: 5,
+                    date: '2024-11-10',
+                    comment: 'Pelayanan memuaskan, tepat waktu, dan harga reasonable. Pasti akan pakai jasa lagi untuk trip selanjutnya.'
+                },
+                {
+                    name: 'Ahmad Rizki',
+                    rating: 4,
+                    date: '2024-11-05',
+                    comment: 'Driver berpengalaman dan tahu jalan dengan baik. Perjalanan aman dan lancar.'
+                }
+            ];
+
+            const reviewsHtml = sampleReviews.map(review => {
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                return `
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="reviewer-name">${review.name}</span>
+                            <span class="review-date">${new Date(review.date).toLocaleDateString('id-ID')}</span>
+                        </div>
+                        <div class="review-stars">${stars}</div>
+                        <div class="review-text">${review.comment}</div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('reviewsList').innerHTML = reviewsHtml || `
+                <div class="empty-state">
+                    <i class="fas fa-star"></i>
+                    <p>Belum ada ulasan untuk driver ini</p>
+                </div>
+            `;
+        }
+
+        // Load data on page load
+        window.onload = loadDriverData;
+    </script>
+</body>
+</html>

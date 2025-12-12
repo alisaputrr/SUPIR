@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Sebagai Driver - SopirPilihan.id</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: -3rem auto 3rem;
+            padding: 0 2rem;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .benefits h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .benefit-item i {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-item h3 {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .benefit-item p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Form Section */
+        .form-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-container h2 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-container .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .form-section h3 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group label .required {
+            color: #dc3545;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 0.3rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed #e0e0e0;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .file-upload i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-preview {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .file-preview.active {
+            display: block;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 0.3rem;
+            width: auto;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Success Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 1rem;
+        }
+
+        .modal-content i {
+            font-size: 5rem;
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content h2 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .modal-btn {
+            padding: 0.8rem 2rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .benefit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-car"></i>
+                <span>SopirPilihan.id</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1><i class="fas fa-id-card"></i> Daftar Sebagai Driver</h1>
+        <p>Bergabunglah dengan driver profesional di platform kami</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Benefits -->
+        <div class="benefits">
+            <h2>Keuntungan Bergabung</h2>
+            <div class="benefit-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Penghasilan Tambahan</h3>
+                    <p>Dapatkan orderan tambahan</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-users"></i>
+                    <h3>Banyak Customer</h3>
+                    <p>Akses ke ribuan customer</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-gift"></i>
+                    <h3>Gratis Selamanya</h3>
+                    <p>Tidak ada biaya pendaftaran</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-star"></i>
+                    <h3>Tingkatkan Rating</h3>
+                    <p>Dapatkan ulasan positif</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-container">
+            <h2>Form Pendaftaran Driver</h2>
+            <p class="subtitle">Lengkapi data diri Anda untuk mendaftar sebagai driver</p>
+
+            <form id="driverRegistrationForm" onsubmit="handleSubmit(event)">
+                <!-- Data Pribadi -->
+                <div class="form-section">
+                    <h3><i class="fas fa-user"></i> Data Pribadi</h3>
+                    
+                    <div class="form-group">
+                        <label>Nama Lengkap <span class="required">*</span></label>
+                        <input type="text" name="nama_lengkap" required placeholder="Contoh: Muhammad Rizal">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" name="email" required placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor WhatsApp <span class="required">*</span></label>
+                            <input type="tel" name="nomor_whatsapp" required placeholder="628123456789">
+                            <small>Format: 62 + nomor (tanpa 0 di depan)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alamat Lengkap <span class="required">*</span></label>
+                        <textarea name="alamat" required rows="3" placeholder="Jl. Contoh No. 123, Makassar"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kota Domisili <span class="required">*</span></label>
+                        <select name="kota_domisili" required>
+                            <option value="">Pilih Kota</option>
+                            <option value="makassar">Makassar</option>
+                            <option value="gowa">Gowa</option>
+                            <option value="maros">Maros</option>
+                            <option value="parepare">Pare-Pare</option>
+                            <option value="palopo">Palopo</option>
+                            <option value="toraja">Toraja</option>
+                            <option value="bone">Bone</option>
+                            <option value="sinjai">Sinjai</option>
+                            <option value="bulukumba">Bulukumba</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Data SIM -->
+                <div class="form-section">
+                    <h3><i class="fas fa-id-card-alt"></i> Data SIM</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nomor SIM <span class="required">*</span></label>
+                            <input type="text" name="nomor_sim" required placeholder="1234567890123456">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipe SIM <span class="required">*</span></label>
+                            <select name="tipe_sim" required>
+                                <option value="">Pilih Tipe</option>
+                                <option value="A">SIM A</option>
+                                <option value="B1">SIM B1</option>
+                                <option value="B2">SIM B2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Foto SIM <span class="required">*</span></label>
+                        <div class="file-upload" onclick="document.getElementById('foto_sim').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Klik untuk upload foto SIM</p>
+                            <small>Format: JPG, PNG (Max 2MB)</small>
+                            <input type="file" id="foto_sim" name="foto_sim" accept="image/*" required onchange="previewFile(this, 'sim-preview')">
+                        </div>
+                        <div class="file-preview" id="sim-preview"></div>
+                    </div>
+                </div>
+
+                <!-- Data Kendaraan -->
+                <div class="form-section">
+                    <h3><i class="fas fa-car"></i> Data Kendaraan</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Jenis Mobil <span class="required">*</span></label>
+                            <select name="jenis_mobil" required>
+                                <option value="">Pilih Jenis</option>
+                                <option value="mpv">MPV (Avanza, Xenia, dll)</option>
+                                <option value="suv">SUV (Fortuner, Pajero, dll)</option>
+                                <option value="minibus">Minibus (Elf, Hiace)</option>
+                                <option value="sedan">Sedan (City, Vios, dll)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Merk & Model <span class="required">*</span></label>
+                            <input type="text" name="merk_mobil" required placeholder="Contoh: Toyota Avanza">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tahun Kendaraan <span class="required">*</span></label>
+                            <input type="number" name="tahun_kendaraan" required min="2010" max="2025" placeholder="2020">
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor Polisi <span class="required">*</span></label>
+                            <input type="text" name="nomor_polisi" required placeholder="DD 1234 AB">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kapasitas Penumpang <span class="required">*</span></label>
+                            <input type="number" name="kapasitas_penumpang" required min="2" max="20" placeholder="7">
+                        </div>
+                        <div class="form-group">
+                            <label>Warna Mobil <span class="required">*</span></label>
+                            <input type="text" name="warna_mobil" required placeholder="Putih">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Foto STNK <span class="required">*</span></label>
+                        <div class="file-upload" onclick="document.getElementById('foto_stnk').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Klik untuk upload foto STNK</p>
+                            <small>Format: JPG, PNG (Max 2MB)</small>
+                            <input type="file" id="foto_stnk" name="foto_stnk" accept="image/*" required onchange="previewFile(this, 'stnk-preview')">
+                        </div>
+                        <div class="file-preview" id="stnk-preview"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Foto Kendaraan <span class="required">*</span></label>
+                        <div class="file-upload" onclick="document.getElementById('foto_kendaraan').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Klik untuk upload foto kendaraan</p>
+                            <small>Format: JPG, PNG (Max 2MB)</small>
+                            <input type="file" id="foto_kendaraan" name="foto_kendaraan" accept="image/*" required onchange="previewFile(this, 'kendaraan-preview')">
+                        </div>
+                        <div class="file-preview" id="kendaraan-preview"></div>
+                    </div>
+                </div>
+
+                <!-- Data Layanan -->
+                <div class="form-section">
+                    <h3><i class="fas fa-briefcase"></i> Data Layanan</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Pengalaman Mengemudi (Tahun) <span class="required">*</span></label>
+                            <input type="number" name="pengalaman_tahun" required min="1" placeholder="5">
+                        </div>
+                        <div class="form-group">
+                            <label>Harga Per Hari <span class="required">*</span></label>
+                            <input type="number" name="harga_per_hari" required min="100000" placeholder="400000">
+                            <small>Harga dalam Rupiah</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Spesialisasi Layanan <span class="required">*</span></label>
+                        <div style="display: grid; gap: 0.5rem;">
+                            <label style="font-weight: normal;">
+                                <input type="checkbox" name="spesialisasi" value="Antar Jemput Bandara"> Antar Jemput Bandara
+                            </label>
+                            <label style="font-weight: normal;">
+                                <input type="checkbox" name="spesialisasi" value="Tour Wisata"> Tour Wisata
+                            </label>
+                            <label style="font-weight: normal;">
+                                <input type="checkbox" name="spesialisasi" value="Antar Kota"> Antar Kota
+                            </label>
+                            <label style="font-weight: normal;">
+                                <input type="checkbox" name="spesialisasi" value="Dalam Kota"> Dalam Kota
+                            </label>
+                            <label style="font-weight: normal;">
+                                <input type="checkbox" name="spesialisasi" value="Pengiriman Barang"> Pengiriman Barang
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deskripsi Diri & Layanan</label>
+                        <textarea name="deskripsi" rows="4" placeholder="Ceritakan tentang diri Anda dan layanan yang ditawarkan..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Agreement -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agree" required>
+                    <label for="agree">
+                        Saya menyetujui <a href="#" style="color: #667eea;">Syarat & Ketentuan</a> dan <a href="#" style="color: #667eea;">Kebijakan Privasi</a> SopirPilihan.id <span class="required">*</span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Kirim Pendaftaran
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle"></i>
+            <h2>Pendaftaran Berhasil!</h2>
+            <p>Terima kasih telah mendaftar. Kami akan melakukan verifikasi data Anda dalam 1-2 hari kerja. Anda akan dihubungi melalui WhatsApp.</p>
+            <a href="index.html" class="modal-btn">Kembali ke Beranda</a>
+        </div>
+    </div>
+
+    <script>
+        function previewFile(input, previewId) {
+            const preview = document.getElementById(previewId);
+            const file = input.files[0];
+            
+            if (file) {
+                preview.innerHTML = `
+                    <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                    <strong>${file.name}</strong> (${(file.size / 1024).toFixed(2)} KB)
+                `;
+                preview.classList.add('active');
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Get spesialisasi checkboxes
+            const spesialisasi = [];
+            document.querySelectorAll('input[name="spesialisasi"]:checked').forEach(checkbox => {
+                spesialisasi.push(checkbox.value);
+            });
+
+            if (spesialisasi.length === 0) {
+                alert('Silakan pilih minimal 1 spesialisasi layanan');
+                return;
+            }
+
+            // Create driver object
+            const driverData = {
+                nama_lengkap: formData.get('nama_lengkap'),
+                email: formData.get('email'),
+                nomor_whatsapp: formData.get('nomor_whatsapp'),
+                alamat: formData.get('alamat'),
+                kota_domisili: formData.get('kota_domisili'),
+                nomor_sim: formData.get('nomor_sim'),
+                tipe_sim: formData.get('tipe_sim'),
+                jenis_mobil: formData.get('jenis_mobil'),
+                merk_mobil: formData.get('merk_mobil'),
+                tahun_kendaraan: formData.get('tahun_kendaraan'),
+                nomor_polisi: formData.get('nomor_polisi'),
+                kapasitas_penumpang: formData.get('kapasitas_penumpang'),
+                warna_mobil: formData.get('warna_mobil'),
+                pengalaman_tahun: formData.get('pengalaman_tahun'),
+                harga_per_hari: formData.get('harga_per_hari'),
+                spesialisasi: spesialisasi,
+                deskripsi: formData.get('deskripsi'),
+                status: 'pending',
+                tanggal_daftar: new Date().toISOString()
+            };
+
+            // Save to localStorage (akan diganti dengan backend nanti)
+            let pendingDrivers = JSON.parse(localStorage.getItem('pendingDrivers') || '[]');
+            driverData.id = Date.now();
+            pendingDrivers.push(driverData);
+            localStorage.setItem('pendingDrivers', JSON.stringify(pendingDrivers));
+
+            // Show success modal
+            document.getElementById('successModal').classList.add('active');
+            form.reset();
+        }
+    </script>
+</body>
+</html>

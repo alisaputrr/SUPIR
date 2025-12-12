@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan - SopirPilihan.id</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .login-btn {
+            background: white;
+            color: #667eea;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Service Section */
+        .service-section {
+            margin-bottom: 4rem;
+        }
+
+        .service-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .service-header h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .service-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .service-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .service-content.reverse {
+            direction: rtl;
+        }
+
+        .service-content.reverse > * {
+            direction: ltr;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 8rem;
+        }
+
+        .service-details h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .service-details p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #555;
+        }
+
+        .service-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .service-pricing {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-pricing h4 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            color: #666;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .order-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .why-choose h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-item {
+            padding: 1.5rem;
+        }
+
+        .benefit-item i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-item p {
+            color: #666;
+        }
+
+        /* Coverage Map */
+        .coverage-map {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+        }
+
+        .coverage-map h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .city-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .city-item:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .city-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9ecef;
+            padding: 1.5rem 0;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .faq-question:hover {
+            color: #667eea;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: #666;
+            padding-top: 0;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding-top: 1rem;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+
+        .faq-icon.active {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            padding: 0.3rem 0;
+        }
+
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .service-content {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .service-content.reverse {
+                direction: ltr;
+            }
+
+            .service-image {
+                height: 250px;
+                font-size: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-car"></i>
+                <span>SopirPilihan.id</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="katalog-driver.html">Katalog Driver</a></li>
+                <li><a href="jenis-mobil.html">Jenis Mobil</a></li>
+                <li><a href="layanan.html">Layanan</a></li>
+                <li><a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1><i class="fas fa-concierge-bell"></i> Layanan Kami</h1>
+        <p>Solusi transportasi lengkap untuk berbagai kebutuhan Anda di Sulawesi Selatan</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Service 1: Jasa Pengantaran -->
+        <div class="service-section">
+            <div class="service-content">
+                <div class="service-image">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="service-details">
+                    <h3>Jasa Pengantaran Penumpang</h3>
+                    <p>Layanan antar-jemput penumpang yang nyaman dan aman untuk berbagai keperluan. Driver profesional kami siap mengantar Anda ke tujuan dengan tepat waktu.</p>
+                    
+                    <ul class="service-features">
+                        <li>Antar jemput bandara Sultan Hasanuddin</li>
+                        <li>Antar ke acara/event (pernikahan, seminar, dll)</li>
+                        <li>Antar ke rumah sakit dan fasilitas kesehatan</li>
+                        <li>Perjalanan dalam kota Makassar & sekitarnya</li>
+                        <li>Perjalanan antar kota di Sulawesi Selatan</li>
+                        <li>Antar jemput sekolah/kampus (harian/bulanan)</li>
+                    </ul>
+
+                    <div class="service-pricing">
+                        <h4>Estimasi Harga:</h4>
+                        <div class="pricing-item">
+                            <span>Dalam Kota (per trip)</span>
+                            <span class="price">Rp 50.000 - 150.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Bandara Transfer</span>
+                            <span class="price">Rp 100.000 - 200.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Full Day (12 jam)</span>
+                            <span class="price">Rp 400.000 - 550.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Antar Kota</span>
+                            <span class="price">Mulai Rp 500.000</span>
+                        </div>
+                    </div>
+
+                    <button class="order-btn" onclick="window.location.href='katalog-driver.html'">
+                        <i class="fas fa-calendar-check"></i> Pesan Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2: Pengantaran Barang -->
+        <div class="service-section">
+            <div class="service-content reverse">
+                <div class="service-image">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="service-details">
+                    <h3>Jasa Pengantaran Barang</h3>
+                    <p>Layanan pengiriman barang yang cepat, aman, dan terpercaya. Cocok untuk berbagai jenis barang dari dokumen hingga barang besar.</p>
+                    
+                    <ul class="service-features">
+                        <li>Kiriman paket dan dokumen penting</li>
+                        <li>Belanja & delivery (groceries, makanan, dll)</li>
+                        <li>Ambil dan antar barang titipan</li>
+                        <li>Pengiriman antar kota di Sulawesi Selatan</li>
+                        <li>Layanan express untuk pengiriman mendesak</li>
+                        <li>Asuransi barang tersedia (opsional)</li>
+                    </ul>
+
+                    <div class="service-pricing">
+                        <h4>Estimasi Harga:</h4>
+                        <div class="pricing-item">
+                            <span>Dokumen/Paket Kecil (dalam kota)</span>
+                            <span class="price">Rp 30.000 - 75.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Barang Sedang (dalam kota)</span>
+                            <span class="price">Rp 75.000 - 150.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Barang Besar (dalam kota)</span>
+                            <span class="price">Rp 150.000 - 300.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Antar Kota</span>
+                            <span class="price">Mulai Rp 200.000</span>
+                        </div>
+                    </div>
+
+                    <button class="order-btn" onclick="window.location.href='katalog-driver.html'">
+                        <i class="fas fa-shipping-fast"></i> Kirim Barang
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3: Tour Wisata -->
+        <div class="service-section">
+            <div class="service-content">
+                <div class="service-image">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <div class="service-details">
+                    <h3>Paket Tour Wisata</h3>
+                    <p>Jelajahi keindahan Sulawesi Selatan dengan driver yang berpengalaman sebagai tour guide. Paket wisata fleksibel sesuai keinginan Anda.</p>
+                    
+                    <ul class="service-features">
+                        <li>City tour Makassar (Fort Rotterdam, Losari, Trans Studio)</li>
+                        <li>Wisata Toraja (Londa, Lemo, Ke'te Kesu, dll)</li>
+                        <li>Pantai & pulau (Samalona, Kodingareng, Bira)</li>
+                        <li>Wisata kuliner dan belanja</li>
+                        <li>Paket tour custom sesuai request</li>
+                        <li>Driver sebagai local guide (opsional)</li>
+                    </ul>
+
+                    <div class="service-pricing">
+                        <h4>Paket Populer:</h4>
+                        <div class="pricing-item">
+                            <span>City Tour Makassar (6-8 jam)</span>
+                            <span class="price">Rp 350.000 - 450.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Tour Toraja (3D2N)</span>
+                            <span class="price">Rp 2.500.000 - 3.500.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Pantai Bira (Full Day)</span>
+                            <span class="price">Rp 800.000 - 1.200.000</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span>Custom Tour</span>
+                            <span class="price">Hubungi Kami</span>
+                        </div>
+                    </div>
+
+                    <button class="order-btn" onclick="window.location.href='katalog-driver.html'">
+                        <i class="fas fa-map-marked-alt"></i> Booking Tour
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Choose Section -->
+        <div class="why-choose">
+            <h2>Mengapa Memilih Layanan Kami?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Aman & Terpercaya</h3>
+                    <p>Driver terverifikasi dengan kendaraan yang diasuransikan</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>Harga Transparan</h3>
+                    <p>Tidak ada biaya tersembunyi, semua harga jelas</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Tepat Waktu</h3>
+                    <p>Driver selalu on time dan profesional</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-headset"></i>
+                    <h3>Support 24/7</h3>
+                    <p>Customer service siap membantu kapan saja</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coverage Map -->
+        <div class="coverage-map">
+            <h2>Wilayah Layanan Kami</h2>
+            <div class="city-grid">
+                <div class="city-item">
+                    <i class="fas fa-city"></i>
+                    <div><strong>Makassar</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-building"></i>
+                    <div><strong>Gowa</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-tree"></i>
+                    <div><strong>Maros</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-water"></i>
+                    <div><strong>Pangkep</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-mountain"></i>
+                    <div><strong>Toraja</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-ship"></i>
+                    <div><strong>Pare-Pare</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-umbrella-beach"></i>
+                    <div><strong>Bulukumba</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-landmark"></i>
+                    <div><strong>Palopo</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-archway"></i>
+                    <div><strong>Barru</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-gopuram"></i>
+                    <div><strong>Bone</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-place-of-worship"></i>
+                    <div><strong>Sinjai</strong></div>
+                </div>
+                <div class="city-item">
+                    <i class="fas fa-kaaba"></i>
+                    <div><strong>Lainnya</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Pertanyaan yang Sering Diajukan</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Bagaimana cara memesan layanan?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Anda bisa memesan melalui website kami dengan memilih driver di halaman Katalog Driver, atau hubungi customer service kami melalui WhatsApp/telepon untuk bantuan pemesanan.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Apakah harga sudah termasuk BBM?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Untuk layanan dalam kota dan paket harian, harga sudah termasuk BBM. Untuk perjalanan antar kota jarak jauh, BBM ditanggung oleh pemesan atau bisa disesuaikan dalam kesepakatan.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Apakah bisa booking untuk beberapa hari?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Tentu bisa! Kami menyediakan paket harian, mingguan, bahkan bulanan dengan harga yang lebih ekonomis. Hubungi kami untuk paket long-term.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Bagaimana sistem pembayaran?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Pembayaran bisa dilakukan secara cash kepada driver atau transfer ke rekening resmi kami. Untuk booking jangka panjang, biasanya ada sistem DP (down payment).
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Apakah ada minimal waktu pemesanan?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Untuk hasil terbaik, kami sarankan booking minimal 1 hari sebelumnya. Namun untuk kebutuhan mendesak, kami juga melayani booking instant jika ada driver yang available.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Apakah driver bisa jadi tour guide?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Ya! Banyak driver kami yang berpengalaman sebagai tour guide lokal, terutama untuk wisata Toraja dan sekitar Makassar. Informasikan kebutuhan Anda saat booking.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SopirPilihan.id</h3>
+                <p>Platform gratis untuk menghubungkan pengguna dengan driver profesional di Sulawesi Selatan.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Layanan</h3>
+                <ul>
+                    <li><a href="#pengantaran">Jasa Pengantaran</a></li>
+                    <li><a href="#barang">Pengantaran Barang</a></li>
+                    <li><a href="#wisata">Tour Wisata</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Perusahaan</h3>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="login.html">Daftar Driver</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kontak</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +62 812-3456-7890</li>
+                    <li><i class="fas fa-envelope"></i> info@sopirpilihan.id</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Makassar, Sulawesi Selatan</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SopirPilihan.id - Platform Gratis Transportasi Sulawesi Selatan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.faq-icon');
+            
+            answer.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

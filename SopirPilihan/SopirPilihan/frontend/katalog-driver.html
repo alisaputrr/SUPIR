@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Driver - SopirPilihan.id</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
+        /* Driver Grid */
+        .driver-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .driver-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .driver-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .driver-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            position: relative;
+        }
+
+        .driver-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #28a745;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .driver-badge.premium {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .driver-info {
+            padding: 1.5rem;
+        }
+
+        .driver-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .driver-location {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .driver-details {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .driver-details div {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .driver-rating {
+            color: #ffc107;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .driver-specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .specialty-tag {
+            background: #e9ecef;
+            color: #495057;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        .driver-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        /* WhatsApp Button - Main CTA */
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem;
+            background: #25D366;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        .whatsapp-btn i {
+            font-size: 1.3rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .info-box i {
+            color: #2196F3;
+            margin-right: 0.5rem;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            padding: 0.3rem 0;
+        }
+
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .driver-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <i class="fas fa-car"></i>
+                <span>SopirPilihan.id</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="katalog-driver.html">Katalog Driver</a></li>
+                <li><a href="jenis-mobil.html">Jenis Mobil</a></li>
+                <li><a href="layanan.html">Layanan</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1><i class="fas fa-users"></i> Katalog Driver</h1>
+        <p>Pilih driver profesional dan hubungi langsung via WhatsApp</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Info Box -->
+        <div class="info-box">
+            <i class="fab fa-whatsapp"></i>
+            <strong>Cara Booking:</strong> Klik tombol "Chat WhatsApp" untuk langsung terhubung dengan driver. Diskusikan detail perjalanan dan harga langsung dengan driver pilihan Anda!
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h2 style="margin-bottom: 1.5rem;"><i class="fas fa-filter"></i> Filter Driver</h2>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label>Kota/Wilayah</label>
+                    <select id="locationFilter">
+                        <option value="">Semua Lokasi</option>
+                        <option value="makassar">Makassar</option>
+                        <option value="gowa">Gowa</option>
+                        <option value="maros">Maros</option>
+                        <option value="parepare">Pare-Pare</option>
+                        <option value="palopo">Palopo</option>
+                        <option value="toraja">Toraja</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Jenis Mobil</label>
+                    <select id="carFilter">
+                        <option value="">Semua Mobil</option>
+                        <option value="mpv">MPV</option>
+                        <option value="suv">SUV</option>
+                        <option value="minibus">Minibus</option>
+                        <option value="sedan">Sedan</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Rating Minimum</label>
+                    <select id="ratingFilter">
+                        <option value="">Semua Rating</option>
+                        <option value="4.5">4.5+ ★</option>
+                        <option value="4.0">4.0+ ★</option>
+                        <option value="3.5">3.5+ ★</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Harga Per Hari</label>
+                    <select id="priceFilter">
+                        <option value="">Semua Harga</option>
+                        <option value="300000">< Rp 300.000</option>
+                        <option value="500000">< Rp 500.000</option>
+                        <option value="700000">< Rp 700.000</option>
+                    </select>
+                </div>
+            </div>
+            <div style="margin-top: 1.5rem;">
+                <button class="filter-btn" onclick="applyFilters()">
+                    <i class="fas fa-search"></i> Cari Driver
+                </button>
+                <button class="reset-btn" onclick="resetFilters()">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Driver Grid -->
+        <div class="driver-grid" id="driverGrid">
+            <!-- Drivers will be loaded dynamically from localStorage -->
+            <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #667eea;"></i>
+                <p style="margin-top: 1rem; color: #666;">Memuat data driver...</p>
+            </div>
+        </div>
+            <!-- Driver 1 -->
+            <div class="driver-card" data-location="makassar" data-car="mpv" data-rating="4.9" data-price="400000">
+                <div class="driver-image">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="driver-badge premium">Premium</div>
+                </div>
+                <div class="driver-info">
+                    <div class="driver-name">Muhammad Rizal</div>
+                    <div class="driver-location">
+                        <i class="fas fa-map-marker-alt"></i> Makassar
+                    </div>
+                    <div class="driver-details">
+                        <div><i class="fas fa-car"></i> Toyota Avanza 2020 (MPV)</div>
+                        <div><i class="fas fa-users"></i> Kapasitas: 7 Orang</div>
+                        <div><i class="fas fa-clock"></i> Pengalaman: 5 Tahun</div>
+                    </div>
+                    <div class="driver-rating">
+                        ★★★★★ <span style="color: #333;">(4.9/5 - 127 ulasan)</span>
+                    </div>
+                    <div class="driver-specialties">
+                        <span class="specialty-tag">Antar Jemput Bandara</span>
+                        <span class="specialty-tag">Tour Wisata</span>
+                        <span class="specialty-tag">Antar Kota</span>
+                    </div>
+                    <div class="driver-price">
+                        Rp 400.000 <span style="font-size: 0.9rem; color: #666;">/hari</span>
+                    </div>
+                    <a href="https://wa.me/6281234567890?text=Halo%20Pak%20Rizal%2C%20saya%20tertarik%20dengan%20layanan%20transportasi%20Anda.%20Saya%20ingin%20booking%20untuk%3A%0A%0ANama%3A%20%0ATanggal%3A%20%0ATujuan%3A%20%0AJumlah%20Penumpang%3A%20" 
+                       class="whatsapp-btn" 
+                       target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Driver 2 -->
+            <div class="driver-card" data-location="parepare" data-car="mpv" data-rating="4.8" data-price="380000">
+                <div class="driver-image">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="driver-badge">Terverifikasi</div>
+                </div>
+                <div class="driver-info">
+                    <div class="driver-name">Andi Saputra</div>
+                    <div class="driver-location">
+                        <i class="fas fa-map-marker-alt"></i> Pare-Pare
+                    </div>
+                    <div class="driver-details">
+                        <div><i class="fas fa-car"></i> Daihatsu Xenia 2021 (MPV)</div>
+                        <div><i class="fas fa-users"></i> Kapasitas: 7 Orang</div>
+                        <div><i class="fas fa-clock"></i> Pengalaman: 7 Tahun</div>
+                    </div>
+                    <div class="driver-rating">
+                        ★★★★★ <span style="color: #333;">(4.8/5 - 98 ulasan)</span>
+                    </div>
+                    <div class="driver-specialties">
+                        <span class="specialty-tag">Antar Kota</span>
+                        <span class="specialty-tag">Pengiriman Barang</span>
+                    </div>
+                    <div class="driver-price">
+                        Rp 380.000 <span style="font-size: 0.9rem; color: #666;">/hari</span>
+                    </div>
+                    <a href="https://wa.me/6281234567891?text=Halo%20Pak%20Andi%2C%20saya%20tertarik%20dengan%20layanan%20transportasi%20Anda.%20Saya%20ingin%20booking%20untuk%3A%0A%0ANama%3A%20%0ATanggal%3A%20%0ATujuan%3A%20%0AJumlah%20Penumpang%3A%20" 
+                       class="whatsapp-btn" 
+                       target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Driver 3 -->
+            <div class="driver-card" data-location="palopo" data-car="mpv" data-rating="4.7" data-price="350000">
+                <div class="driver-image">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="driver-badge">Terverifikasi</div>
+                </div>
+                <div class="driver-info">
+                    <div class="driver-name">Joko Santoso</div>
+                    <div class="driver-location">
+                        <i class="fas fa-map-marker-alt"></i> Palopo
+                    </div>
+                    <div class="driver-details">
+                        <div><i class="fas fa-car"></i> Honda Mobilio 2019 (MPV)</div>
+                        <div><i class="fas fa-users"></i> Kapasitas: 7 Orang</div>
+                        <div><i class="fas fa-clock"></i> Pengalaman: 4 Tahun</div>
+                    </div>
+                    <div class="driver-rating">
+                        ★★★★☆ <span style="color: #333;">(4.7/5 - 76 ulasan)</span>
+                    </div>
+                    <div class="driver-specialties">
+                        <span class="specialty-tag">Tour Wisata</span>
+                        <span class="specialty-tag">Antar Jemput</span>
+                    </div>
+                    <div class="driver-price">
+                        Rp 350.000 <span style="font-size: 0.9rem; color: #666;">/hari</span>
+                    </div>
+                    <a href="https://wa.me/6281234567892?text=Halo%20Pak%20Joko%2C%20saya%20tertarik%20dengan%20layanan%20transportasi%20Anda.%20Saya%20ingin%20booking%20untuk%3A%0A%0ANama%3A%20%0ATanggal%3A%20%0ATujuan%3A%20%0AJumlah%20Penumpang%3A%20" 
+                       class="whatsapp-btn" 
+                       target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Driver 4 -->
+            <div class="driver-card" data-location="makassar" data-car="suv" data-rating="4.9" data-price="550000">
+                <div class="driver-image">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="driver-badge premium">Premium</div>
+                </div>
+                <div class="driver-info">
+                    <div class="driver-name">Budi Hartono</div>
+                    <div class="driver-location">
+                        <i class="fas fa-map-marker-alt"></i> Makassar
+                    </div>
+                    <div class="driver-details">
+                        <div><i class="fas fa-car"></i> Toyota Fortuner 2022 (SUV)</div>
+                        <div><i class="fas fa-users"></i> Kapasitas: 7 Orang</div>
+                        <div><i class="fas fa-clock"></i> Pengalaman: 8 Tahun</div>
+                    </div>
+                    <div class="driver-rating">
+                        ★★★★★ <span style="color: #333;">(4.9/5 - 142 ulasan)</span>
+                    </div>
+                    <div class="driver-specialties">
+                        <span class="specialty-tag">VIP Service</span>
+                        <span class="specialty-tag">Tour Wisata</span>
+                        <span class="specialty-tag">Acara Keluarga</span>
+                    </div>
+                    <div class="driver-price">
+                        Rp 550.000 <span style="font-size: 0.9rem; color: #666;">/hari</span>
+                    </div>
+                    <a href="https://wa.me/6281234567893?text=Halo%20Pak%20Budi%2C%20saya%20tertarik%20dengan%20layanan%20transportasi%20Anda.%20Saya%20ingin%20booking%20untuk%3A%0A%0ANama%3A%20%0ATanggal%3A%20%0ATujuan%3A%20%0AJumlah%20Penumpang%3A%20" 
+                       class="whatsapp-btn" 
+                       target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Driver 5 -->
+            <div class="driver-card" data-location="toraja" data-car="minibus" data-rating="4.6" data-price="650000">
+                <div class="driver-image">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="driver-badge">Terverifikasi</div>
+                </div>
+                <div class="driver-info">
+                    <div class="driver-name">Pongki Limbong</div>
+                    <div class="driver-location">
+                        <i class="fas fa-map-marker-alt"></i> Toraja
+                    </div>
+                    <div class="driver-details">
+                        <div><i class="fas fa-car"></i> Isuzu Elf 2020 (Minibus)</div>
+                        <div><i class="fas fa-users"></i> Kapasitas: 14 Orang</div>
+                        <div><i class="fas fa-clock"></i> Pengalaman: 6 Tahun</div>
+                    </div>
+                    <div class="driver-rating">
+                        ★★★★☆ <span style="color: #333;">(4.6/5 - 64 ulasan)</span>
+                    </div>
+                    <div class="driver-specialties">
+                        <span class="specialty-tag">Tour Toraja</span>
+                        <span class="specialty-tag">Group Travel</span>
+                        <span class="specialty-tag">Local Guide</span>
+                    </div>
+                    <div class="driver-price">
+                        Rp 650.000 <span style="font-size: 0.9rem; color: #666;">/hari</span>
+                    </div>
+                    <a href="https://wa.me/6281234567894?text=Halo%20Pak%20Pongki%2C%20saya%20tertarik%20dengan%20layanan%20transportasi%20Anda.%20Saya%20ingin%20booking%20untuk%3A%0A%0ANama%3A%20%0ATanggal%3A%20%0ATujuan%3A%20%0AJumlah%20Penumpang%3A%20" 
+                       class="whatsapp-btn" 
+                       target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Driver 6 -->
+            <div class="driver-card" data-location="gowa" data-car="sedan" data-rating="4.5" data-price="280000">
+                <div class="driver-image">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="driver-badge">Terverifikasi</div>
+                </div>
+                <div class="driver-info">
+                    <div class="driver-name">Syahrul Ramadhan</div>
+                    <div class="driver-location">
+                        <i class="fas fa-map-marker-alt"></i> Gowa
+                    </div>
+                    <div class="driver-details">
+                        <div><i class="fas fa-car"></i> Honda City 2020 (Sedan)</div>
+                        <div><i class="fas fa-users"></i> Kapasitas: 4 Orang</div>
+                        <div><i class="fas fa-clock"></i> Pengalaman: 3 Tahun</div>
+                    </div>
+                    <div class="driver-rating">
+                        ★★★★☆ <span style="color: #333;">(4.5/5 - 52 ulasan)</span>
+                    </div>
+                    <div class="driver-specialties">
+                        <span class="specialty-tag">Antar Jemput</span>
+                        <span class="specialty-tag">Dalam Kota</span>
+                    </div>
+                    <div class="driver-price">
+                        Rp 280.000 <span style="font-size: 0.9rem; color: #666;">/hari</span>
+                    </div>
+                    <a href="https://wa.me/6281234567895?text=Halo%20Pak%20Syahrul%2C%20saya%20tertarik%20dengan%20layanan%20transportasi%20Anda.%20Saya%20ingin%20booking%20untuk%3A%0A%0ANama%3A%20%0ATanggal%3A%20%0ATujuan%3A%20%0AJumlah%20Penumpang%3A%20" 
+                       class="whatsapp-btn" 
+                       target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>Tidak ada driver yang sesuai</h3>
+            <p>Coba ubah filter pencarian Anda</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SopirPilihan.id</h3>
+                <p>Platform gratis untuk menghubungkan pengguna dengan driver profesional di Sulawesi Selatan.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Layanan</h3>
+                <ul>
+                    <li><a href="layanan.html">Jasa Pengantaran</a></li>
+                    <li><a href="layanan.html">Pengantaran Barang</a></li>
+                    <li><a href="layanan.html">Tour Wisata</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Perusahaan</h3>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Daftar Driver</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kontak</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +62 812-3456-7890</li>
+                    <li><i class="fas fa-envelope"></i> info@sopirpilihan.id</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Makassar, Sulawesi Selatan</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SopirPilihan.id - Platform Gratis Transportasi Sulawesi Selatan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load drivers from localStorage on page load
+        window.onload = function() {
+            loadDrivers();
+        };
+
+        function loadDrivers() {
+            const approvedDrivers = JSON.parse(localStorage.getItem('approvedDrivers') || '[]');
+            const driverGrid = document.getElementById('driverGrid');
+            
+            if (approvedDrivers.length === 0) {
+                // Show sample drivers if no approved drivers yet
+                driverGrid.innerHTML = getSampleDrivers();
+            } else {
+                // Show approved drivers
+                driverGrid.innerHTML = approvedDrivers.map(driver => createDriverCard(driver)).join('');
+            }
+        }
+
+        function createDriverCard(driver) {
+            const stars = '★'.repeat(Math.floor(driver.rating || 5)) + '☆'.repeat(5 - Math.floor(driver.rating || 5));
+            const specialties = driver.spesialisasi.slice(0, 3).map(s => 
+                `<span class="specialty-tag">${s}</span>`
+            ).join('');
+            
+            const waMessage = `Halo ${driver.nama_lengkap}, saya tertarik dengan layanan transportasi Anda. Saya ingin booking untuk:%0A%0ANama: %0ATanggal: %0ATujuan: %0AJumlah Penumpang: `;
+            
+            return `
+                <div class="driver-card" data-location="${driver.kota_domisili}" data-car="${driver.jenis_mobil}" data-rating="${driver.rating || 5}" data-price="${driver.harga_per_hari}">
+                    <div class="driver-image">
+                        <i class="fas fa-user-tie"></i>
+                        <div class="driver-badge">${driver.rating >= 4.8 ? 'Premium' : 'Terverifikasi'}</div>
+                    </div>
+                    <div class="driver-info">
+                        <div class="driver-name">${driver.nama_lengkap}</div>
+                        <div class="driver-location">
+                            <i class="fas fa-map-marker-alt"></i> ${driver.kota_domisili.charAt(0).toUpperCase() + driver.kota_domisili.slice(1)}
+                        </div>
+                        <div class="driver-details">
+                            <div><i class="fas fa-car"></i> ${driver.merk_mobil} (${driver.jenis_mobil.toUpperCase()})</div>
+                            <div><i class="fas fa-users"></i> Kapasitas: ${driver.kapasitas_penumpang} Orang</div>
+                            <div><i class="fas fa-clock"></i> Pengalaman: ${driver.pengalaman_tahun} Tahun</div>
+                        </div>
+                        <div class="driver-rating">
+                            ${stars} <span style="color: #333;">(${driver.rating || 5}/5 - ${driver.total_review || 0} ulasan)</span>
+                        </div>
+                        <div class="driver-specialties">
+                            ${specialties}
+                        </div>
+                        <div class="driver-price">
+                            Rp ${parseInt(driver.harga_per_hari).toLocaleString('id-ID')} <span style="font-size: 0.9rem; color: #666;">/hari</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                            <a href="profil-driver.html?id=${driver.id}" class="view-profile-btn" style="text-decoration: none; padding: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.3rem;">
+                                <i class="fas fa-eye"></i> Profil
+                            </a>
+                            <a href="https://wa.me/${driver.nomor_whatsapp}?text=${waMessage}" class="whatsapp-btn" target="_blank" style="padding: 0.8rem; font-size: 1rem;">
+                                <i class="fab fa-whatsapp"></i> Chat
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getSampleDrivers() {
+            // Sample drivers jika belum ada approved drivers
+            return `
+                <div class="driver-card" data-location="makassar" data-car="mpv" data-rating="4.9" data-price="400000">
+                    <div class="driver-image">
+                        <i class="fas fa-user-tie"></i>
+                        <div class="driver-badge premium">Premium</div>
+                    </div>
+                    <div class="driver-info">
+                        <div class="driver-name">Muhammad Rizal</div>
+                        <div class="driver-location">
+                            <i class="fas fa-map-marker-alt"></i> Makassar
+                        </div>
+                        <div class="driver-details">
+                            <div><i class="fas fa-car"></i> Toyota Avanza 2020 (MPV)</div>
+                            <div><i class="fas fa-users"></i> Kapasitas: 7 Orang</div>
+                            <div><i class="fas fa-clock"></i> Pengalaman: 5 Tahun</div>
+                        </div>
+                        <div class="driver-rating">
+                            ★★★★★ <span style="color: #333;">(4.9/5 - 127 ulasan)</span>
+                        </div>
+                        <div class="driver-specialties">
+                            <span class="specialty-tag">Antar Jemput Bandara</span>
+                            <span class="specialty-tag">Tour Wisata</span>
+                            <span class="specialty-tag">Antar Kota</span>
+                        </div>
+                        <div class="driver-price">
+                            Rp 400.000 <span style="font-size: 0.9rem; color: #666;">/hari</span>
+                        </div>
+                        <a href="https://wa.me/6281234567890?text=Halo%20Pak%20Rizal..." class="whatsapp-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function applyFilters() {
+            const location = document.getElementById('locationFilter').value.toLowerCase();
+            const car = document.getElementById('carFilter').value.toLowerCase();
+            const rating = parseFloat(document.getElementById('ratingFilter').value) || 0;
+            const price = parseInt(document.getElementById('priceFilter').value) || Infinity;
+
+            const cards = document.querySelectorAll('.driver-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cardLocation = card.getAttribute('data-location');
+                const cardCar = card.getAttribute('data-car');
+                const cardRating = parseFloat(card.getAttribute('data-rating'));
+                const cardPrice = parseInt(card.getAttribute('data-price'));
+
+                const matchLocation = !location || cardLocation === location;
+                const matchCar = !car || cardCar === car;
+                const matchRating = cardRating >= rating;
+                const matchPrice = cardPrice <= price;
+
+                if (matchLocation && matchCar && matchRating && matchPrice) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const emptyState = document.getElementById('emptyState');
+            const driverGrid = document.getElementById('driverGrid');
+            
+            if (visibleCount === 0) {
+                driverGrid.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                driverGrid.style.display = 'grid';
+                emptyState.style.display = 'none';
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('carFilter').value = '';
+            document.getElementById('ratingFilter').value = '';
+            document.getElementById('priceFilter').value = '';
+            
+            const cards = document.querySelectorAll('.driver-card');
+            cards.forEach(card => {
+                card.style.display = 'block';
+            });
+
+            document.getElementById('driverGrid').style.display = 'grid';
+            document.getElementById('emptyState').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
